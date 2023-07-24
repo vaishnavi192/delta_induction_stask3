@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0A0A">
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="6dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="#FFFFFF"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="82dp" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="294dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:fontFamily="sans-serif-black"
+        android:inputType="text"
+        android:text="Split"
+        android:textAlignment="center"
+        android:textColor="#7DF202"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="128dp"
+            android:layout_height="74dp"
+            android:backgroundTint="#78B5EA"
+            android:text="Add people"
+            android:textColor="#101010"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="568dp" />
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="351dp"
+        android:layout_height="67dp"
+        android:text="DINNER"
+        android:textAlignment="center"
+        android:textColor="#D81B60"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="351dp"
+        android:layout_height="67dp"
+        android:text="paid by : ross"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="191dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="351dp"
+        android:layout_height="67dp"
+        android:text="total = 1000"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="283dp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="357dp"
+        android:layout_height="46dp"
+        android:text="JANE                                  500/-"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="383dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="357dp"
+        android:layout_height="46dp"
+        android:text="HARRY                               500/-"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="451dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="128dp"
+        android:layout_height="74dp"
+        android:backgroundTint="#78B5EA"
+        android:text="Reset"
+        android:textColor="#101010"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="245dp"
+        tools:layout_editor_absoluteY="568dp" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="128dp"
+        android:layout_height="74dp"
+        android:backgroundTint="#78B5EA"
+        android:text="Add people"
+        android:textColor="#101010"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="568dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

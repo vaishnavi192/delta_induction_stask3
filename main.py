@@ -5,15 +5,14 @@ import json
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///finance_app.db'
-app.config['SECRET_KEY'] = 'your_secret_key'  
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///finance_app.db'  
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
+    balance = db.Column(db.Float, default=0.0, nullable=False)
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -55,9 +54,10 @@ def signup():
     data = json.loads(request.data)
     username = data.get('username')
     password = data.get('password')
+    
 
     if not username or not password:
-        return jsonify({'message': 'Missing username or password'}), 400
+        return jsonify({'message': 'Missing username or balance'}), 400
 
     user = User.query.filter_by(username=username).first()
     if user:
@@ -83,7 +83,6 @@ def login():
     return jsonify({'access_token': access_token}), 200
 
 @app.route('/user/<int:user_id>', methods=['GET'])
-@jwt_required()
 def get_user_details(user_id):
     user = User.query.get(user_id)
     if not user:
@@ -92,12 +91,13 @@ def get_user_details(user_id):
     return jsonify({'user_details': {
         'id': user.id,
         'username': user.username,
+        'balance' : user.balance
         
     }}), 200
 @app.route('/home', methods=['GET'])
 def home():
    
-    user_id = 1 
+    user_id = get_jwt_identity()
     user = User.query.filter_by(id=user_id).first()
 
     if user:
@@ -205,21 +205,14 @@ def create_group():
     data = request.json
     group_name = data.get('group_name')
     member_ids = data.get('members')  
-
-    
     new_group = Group(name=group_name)
-
-    
     members = User.query.filter(User.id.in_(member_ids)).all()
     new_group.members.extend(members)
-
-    
     db.session.add(new_group)
     db.session.commit()
 
     return jsonify({'message': 'Group created successfully'}), 201
-@app.route('/groups', methods=['GET'])
-@jwt_required()  
+@app.route('/groups', methods=['GET']) 
 def list_groups():
     current_user_id = get_jwt_identity()  
 
@@ -240,11 +233,13 @@ def share_split():
     split = Split.query.get(split_id)
     if not split:
         return jsonify({'error': 'Split not found'}), 404
+    participants = [user.username for user in split.users]
+    description = split.description if split.description else "No description provided."
 
-    
-    share_message = f"Split ID: {split.id}, Total Amount: {split.total_amount}, ..."
-   
-    
+    share_message = f"Split ID: {split.id}\n"
+    share_message += f"Total Amount: {split.total_amount}\n"
+    share_message += f"Split Description: {description}\n"
+    share_message += f"Participants: {', '.join(participants)}\n"   
     return jsonify({'message': share_message}), 200
 @app.route('/search_splits', methods=['GET'])
 def search_splits():
@@ -323,7 +318,7 @@ def mark_notification_read(notification_id):
         return jsonify({'message': 'Notification marked as read'}), 200
     else:
         return jsonify({'message': 'Notification not found'}), 404
-    if __name__ == '__main__':
+if __name__ == '__main__':
         app.run(debug=True)
         
 
